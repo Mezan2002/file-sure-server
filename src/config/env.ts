@@ -7,7 +7,7 @@ interface EnvConfig {
   PORT: number;
   MONGODB_URI: string;
   JWT_SECRET: string;
-  JWT_EXPIRES_IN: string;
+  JWT_EXPIRES_IN: string | number;
   FRONTEND_URL: string;
   APP_URL: string;
   REFERRAL_CREDIT_AMOUNT: number;
