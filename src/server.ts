@@ -21,11 +21,12 @@ app.use(
   })
 );
 
-// Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: env.NODE_ENV === "development" ? 1000 : 100, // 1000 for dev, 100 for production
   message: "Too many requests from this IP, please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use("/api/", limiter);
 
@@ -33,7 +34,7 @@ app.use("/api/", limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Root Route
+// Root Route
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
